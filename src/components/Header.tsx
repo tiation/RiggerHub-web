@@ -1,10 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/AuthProvider";
+import { 
+  Menu, 
+  X, 
+  HardHat, 
+  User, 
+  LogOut,
+  Settings
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    { name: "Find Jobs", path: "/jobs" },
+    { name: "Profile", path: "/profile" },
+    { name: "Qualifications", path: "/qualifications" },
+    { name: "About", path: "/about" },
+  ];
 
   return (
     <header className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-card/95">
@@ -17,50 +41,145 @@ const Header = () => {
             aria-label="RiggerHub Home"
           >
             <div className="w-8 h-8 bg-primary rounded flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span className="text-primary-foreground font-bold text-sm">RH</span>
+              <HardHat className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold text-foreground">RiggerHub</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
-            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium story-link">Find Jobs</Link>
-            <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium story-link">Profile</Link>
-            <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors font-medium story-link">Qualifications</Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium story-link">About</Link>
-          </nav>
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
 
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" className="hover-scale">Sign In</Button>
-            <Button variant="default" className="btn-glow hover-scale">Get Started</Button>
+          {/* Desktop Auth Section */}
+          <div className="hidden md:flex items-center space-x-4">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span className="max-w-32 truncate">
+                      {user.email?.split('@')[0] || 'User'}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/qualifications" className="flex items-center">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Qualifications
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={signOut}
+                    className="flex items-center text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md hover:bg-accent"
-            aria-expanded={isMenuOpen}
+            aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label="Toggle navigation menu"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div id="mobile-menu" className="md:hidden border-t border-border mt-2 pt-4 pb-4">
-            <nav className="flex flex-col space-y-4">
-              <Link to="/jobs" className="text-foreground hover:text-primary transition-colors">Find Jobs</Link>
-              <Link to="/profile" className="text-foreground hover:text-primary transition-colors">Profile</Link>
-              <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors">Qualifications</Link>
-              <Link to="/about" className="text-foreground hover:text-primary transition-colors">About</Link>
-              <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button variant="ghost" className="justify-start">Sign In</Button>
-                <Button variant="default" className="justify-start">Get Started</Button>
+        {isOpen && (
+          <div id="mobile-menu" className="md:hidden border-t border-border">
+            <div className="flex flex-col space-y-4 p-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-base font-medium transition-colors hover:text-primary ${
+                    location.pathname === item.path
+                      ? "text-primary"
+                      : "text-muted-foreground"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Mobile Auth Section */}
+              <div className="pt-4 border-t">
+                {user ? (
+                  <div className="space-y-3">
+                    <Link 
+                      to="/profile" 
+                      className="flex items-center space-x-2 text-base font-medium"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <User className="w-4 h-4" />
+                      <span>Profile</span>
+                    </Link>
+                    <button 
+                      onClick={() => {
+                        setIsOpen(false);
+                        signOut();
+                      }}
+                      className="flex items-center space-x-2 text-base font-medium text-red-600 w-full text-left"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <Button variant="ghost" className="w-full justify-start" asChild>
+                      <Link to="/auth" onClick={() => setIsOpen(false)}>
+                        Sign In
+                      </Link>
+                    </Button>
+                    <Button className="w-full" asChild>
+                      <Link to="/auth" onClick={() => setIsOpen(false)}>
+                        Get Started
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </div>
-            </nav>
+            </div>
           </div>
         )}
       </div>

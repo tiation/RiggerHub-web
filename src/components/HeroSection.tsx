@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Users, Briefcase, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/components/AuthProvider";
 import heroImage from "@/assets/hero-construction.jpg";
 
 const HeroSection = () => {
+  const { user } = useAuth();
+  
   return (
     <section className="relative min-h-screen flex items-center">
       {/* Background Image with Overlay */}
@@ -35,16 +38,16 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{animationDelay: '0.4s'}}>
-            <Link to="/profile">
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 btn-glow hover-scale">
-                Start Your Profile
-              </Button>
-            </Link>
-            <Link to="/jobs">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary hover-scale">
+            <Button size="lg" variant="secondary" className="text-lg px-8 py-4 btn-glow hover-scale" asChild>
+              <Link to={user ? "/profile" : "/auth"}>
+                {user ? "View Profile" : "Get Started"}
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary hover-scale" asChild>
+              <Link to="/jobs">
                 Browse Jobs
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Key Stats */}
