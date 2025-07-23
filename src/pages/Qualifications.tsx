@@ -44,14 +44,8 @@ const Qualifications = () => {
     });
   };
 
-  const handleFindTraining = (qualName?: string) => {
-    const message = qualName 
-      ? `Searching for training providers for ${qualName}...`
-      : "Searching for available training courses...";
-    toast({
-      title: "Find Training",
-      description: message,
-    });
+  const handleFindTraining = () => {
+    window.location.href = '/find-training';
   };
 
   const handleLearnMore = (qualName: string) => {
@@ -178,10 +172,7 @@ const Qualifications = () => {
           <Button 
             variant="outline" 
             className="h-16 flex-col space-y-2"
-            onClick={() => toast({
-              title: "Set Reminders",
-              description: "Reminder notifications will be available soon.",
-            })}
+            onClick={() => window.location.href = '/set-reminders'}
           >
             <Calendar className="w-5 h-5" />
             <span>Set Reminders</span>
@@ -321,7 +312,7 @@ const Qualifications = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          onClick={() => handleFindTraining(qual)}
+                          onClick={() => window.location.href = '/find-training'}
                         >
                           Find Training
                         </Button>

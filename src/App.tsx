@@ -9,6 +9,8 @@ import Jobs from "./pages/Jobs";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Qualifications from "./pages/Qualifications";
+import FindTraining from "./pages/FindTraining";
+import SetReminders from "./pages/SetReminders";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/qualifications" element={<Qualifications />} />
+            <Route path="/find-training" element={<FindTraining />} />
+            <Route path="/set-reminders" element={<SetReminders />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
