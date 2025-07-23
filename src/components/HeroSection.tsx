@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Users, Briefcase, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-construction.jpg";
 
 const HeroSection = () => {
@@ -23,27 +24,31 @@ const HeroSection = () => {
             Western Australia's Premier Rigging Platform
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Your Next <span className="text-secondary">Rigging Job</span> is Here
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight animate-fade-in">
+            Your Next <span className="gradient-text text-secondary">Rigging Job</span> is Here
           </h1>
           
-          <p className="text-xl text-white/90 mb-8 leading-relaxed">
+          <p className="text-xl text-white/90 mb-8 leading-relaxed animate-fade-in" style={{animationDelay: '0.2s'}}>
             Connect with top construction, mining, and resources companies across WA. 
             Upload your qualifications, showcase your skills, and get matched with 
             high-paying opportunities.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
-              Start Your Profile
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary">
-              Browse Jobs
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{animationDelay: '0.4s'}}>
+            <Link to="/profile">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 btn-glow hover-scale">
+                Start Your Profile
+              </Button>
+            </Link>
+            <Link to="/jobs">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary hover-scale">
+                Browse Jobs
+              </Button>
+            </Link>
           </div>
 
           {/* Key Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-white">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-white animate-fade-in" style={{animationDelay: '0.6s'}}>
             <div className="flex items-center space-x-3">
               <div className="bg-white/20 p-2 rounded-lg">
                 <Users className="w-6 h-6" />

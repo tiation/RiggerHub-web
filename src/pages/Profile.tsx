@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AnimatedCard from "@/components/AnimatedCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -92,10 +93,10 @@ const Profile = () => {
       <Breadcrumbs />
       <main className="container mx-auto px-4 py-8">
         {/* Profile Header */}
-        <Card className="mb-8">
+        <AnimatedCard className="mb-8">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6">
-              <Avatar className="w-24 h-24">
+              <Avatar className="w-24 h-24 hover-scale">
                 <AvatarImage src="/placeholder-avatar.jpg" />
                 <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
                   {userProfile.name.split(' ').map(n => n[0]).join('')}
@@ -105,11 +106,11 @@ const Profile = () => {
               <div className="flex-1">
                 <div className="flex flex-col md:flex-row justify-between items-start mb-4">
                   <div>
-                    <h1 className="text-2xl font-bold text-foreground mb-2">{userProfile.name}</h1>
+                    <h1 className="text-2xl font-bold text-foreground mb-2 font-display">{userProfile.name}</h1>
                     <p className="text-lg text-muted-foreground mb-2">{userProfile.specialization}</p>
-                    <Badge variant="secondary" className="mb-4">{userProfile.status}</Badge>
+                    <Badge variant="secondary" className="mb-4 animate-pulse-scale">{userProfile.status}</Badge>
                   </div>
-                  <Button onClick={handleEditProfile} className="mt-4 md:mt-0">
+                  <Button onClick={handleEditProfile} className="mt-4 md:mt-0 btn-glow hover-scale">
                     <Edit className="w-4 h-4 mr-2" />
                     Edit Profile
                   </Button>
@@ -136,7 +137,7 @@ const Profile = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </AnimatedCard>
 
         {/* Profile Tabs */}
         <Tabs defaultValue="qualifications" className="space-y-4">
@@ -146,7 +147,7 @@ const Profile = () => {
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="qualifications" className="space-y-4">
+          <TabsContent value="qualifications" className="space-y-4 animate-fade-in">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Qualifications & Certifications</h2>
               <Link to="/qualifications">
@@ -160,11 +161,11 @@ const Profile = () => {
             
             <div className="grid gap-4">
               {qualifications.map((qual, index) => (
-                <Card key={index}>
+                <AnimatedCard key={index} delay={`${index * 0.1}s`}>
                   <CardContent className="pt-4">
                     <div className="flex justify-between items-start">
                       <div className="flex items-start space-x-3">
-                        <div className="bg-accent p-2 rounded-lg">
+                        <div className="bg-accent p-2 rounded-lg hover-scale">
                           <Award className="w-5 h-5 text-primary" />
                         </div>
                         <div>
@@ -183,21 +184,21 @@ const Profile = () => {
                       </Badge>
                     </div>
                   </CardContent>
-                </Card>
+                </AnimatedCard>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="experience" className="space-y-4">
+          <TabsContent value="experience" className="space-y-4 animate-fade-in">
             <h2 className="text-xl font-semibold">Work History</h2>
             
             <div className="space-y-4">
               {workHistory.map((job, index) => (
-                <Card key={index}>
+                <AnimatedCard key={index} delay={`${index * 0.1}s`}>
                   <CardContent className="pt-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium text-lg">{job.position}</h3>
+                        <h3 className="font-medium text-lg font-display">{job.position}</h3>
                         <p className="text-primary font-medium">{job.company}</p>
                         <p className="text-muted-foreground">{job.project}</p>
                         <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
@@ -213,71 +214,71 @@ const Profile = () => {
                       </div>
                     </div>
                   </CardContent>
-                </Card>
+                </AnimatedCard>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="settings" className="space-y-4">
+          <TabsContent value="settings" className="space-y-4 animate-fade-in">
             <h2 className="text-xl font-semibold">Profile Settings</h2>
             
             <div className="grid gap-6">
-              <Card>
+              <AnimatedCard delay="0.1s">
                 <CardHeader>
-                  <CardTitle>Availability Settings</CardTitle>
+                  <CardTitle className="font-display">Availability Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start hover-scale"
                     onClick={() => handleSettingsAction("Update Availability Status")}
                   >
                     Update Availability Status
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start hover-scale"
                     onClick={() => handleSettingsAction("Set Location Preferences")}
                   >
                     Set Location Preferences
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start hover-scale"
                     onClick={() => handleSettingsAction("Configure Job Alerts")}
                   >
                     Configure Job Alerts
                   </Button>
                 </CardContent>
-              </Card>
+              </AnimatedCard>
 
-              <Card>
+              <AnimatedCard delay="0.2s">
                 <CardHeader>
-                  <CardTitle>Account Settings</CardTitle>
+                  <CardTitle className="font-display">Account Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start hover-scale"
                     onClick={() => handleSettingsAction("Change Password")}
                   >
                     Change Password
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start"
+                    className="w-full justify-start hover-scale"
                     onClick={() => handleSettingsAction("Update Contact Information")}
                   >
                     Update Contact Information
                   </Button>
                   <Link to="/privacy" className="block">
-                    <Button variant="outline" className="w-full justify-start">
+                    <Button variant="outline" className="w-full justify-start hover-scale">
                       Privacy Settings
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                 </CardContent>
-              </Card>
+              </AnimatedCard>
             </div>
           </TabsContent>
         </Tabs>

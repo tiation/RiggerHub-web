@@ -24,16 +24,16 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
-            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium">Find Jobs</Link>
-            <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">Profile</Link>
-            <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors font-medium">Qualifications</Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">About</Link>
+            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium story-link">Find Jobs</Link>
+            <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium story-link">Profile</Link>
+            <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors font-medium story-link">Qualifications</Link>
+            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium story-link">About</Link>
           </nav>
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost">Sign In</Button>
-            <Button variant="default">Get Started</Button>
+            <Button variant="ghost" className="hover-scale">Sign In</Button>
+            <Button variant="default" className="btn-glow hover-scale">Get Started</Button>
           </div>
 
           {/* Mobile Menu Button */}
