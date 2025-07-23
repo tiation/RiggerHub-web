@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Heart, Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -22,7 +23,7 @@ const Footer = () => {
             <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
               <Heart className="w-4 h-4 text-secondary" />
               <span>Proudly supporting</span>
-              <a href="#" className="text-primary hover:underline font-medium">ChaseWhiteRabbit NGO</a>
+              <Link to="/about" className="text-primary hover:underline font-medium">ChaseWhiteRabbit NGO</Link>
             </div>
             <p className="text-xs text-muted-foreground">
               Part of the Rigger Project - Building careers while making a difference.
@@ -33,9 +34,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">For Workers</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Find Jobs</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Create Profile</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Upload Qualifications</a></li>
+              <li><Link to="/jobs" className="text-muted-foreground hover:text-primary transition-colors">Find Jobs</Link></li>
+              <li><Link to="/profile" className="text-muted-foreground hover:text-primary transition-colors">Create Profile</Link></li>
+              <li><Link to="/qualifications" className="text-muted-foreground hover:text-primary transition-colors">Upload Qualifications</Link></li>
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Career Resources</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Safety Guidelines</a></li>
             </ul>
