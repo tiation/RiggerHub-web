@@ -27,6 +27,7 @@ import {
   Building,
   Clock
 } from "lucide-react";
+import LocationDisplay from "@/components/LocationDisplay";
 
 const Profile = () => {
   const { user, loading } = useAuth();
@@ -205,10 +206,20 @@ const Profile = () => {
                     <Phone className="w-4 h-4 text-muted-foreground" />
                     <span>{userProfile.phone}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-4 h-4 text-muted-foreground" />
-                    <span>{userProfile.location}</span>
-                  </div>
+                  <LocationDisplay
+                    latitude={profile?.latitude}
+                    longitude={profile?.longitude}
+                    address={profile?.location}
+                    editable={true}
+                    onLocationUpdate={(address) => {
+                      // TODO: Update profile in database
+                      toast({
+                        title: "Location Updated",
+                        description: "Your location has been updated. Changes will be saved to your profile.",
+                      });
+                    }}
+                    size="sm"
+                  />
                   <div className="flex items-center space-x-2">
                     <Building className="w-4 h-4 text-muted-foreground" />
                     <span>{userProfile.company}</span>

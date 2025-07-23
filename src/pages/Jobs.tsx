@@ -10,6 +10,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import LocationPermissionManager, { LocationData } from "@/components/ui/location-permission-manager";
 import { useLocationPermission } from "@/hooks/use-location-permission";
 import { MapPin, Clock, DollarSign, Building, Filter, Search, Bookmark, Heart, Star, TrendingUp, Navigation, MapIcon, AlertCircle } from "lucide-react";
+import { formatDistance } from "@/utils/geocoding";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
@@ -448,7 +449,7 @@ const Jobs = () => {
                           <span>{job.location}</span>
                           {job.distance && (
                             <Badge variant="outline" className="text-xs ml-2">
-                              {job.distance.toFixed(1)} km away
+                              {formatDistance(job.distance)} away
                             </Badge>
                           )}
                         </div>

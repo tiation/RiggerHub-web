@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Qualifications from "./pages/Qualifications";
 import FindTraining from "./pages/FindTraining";
+import FindWorkers from "./pages/FindWorkers";
 import SetReminders from "./pages/SetReminders";
 import Auth from "./pages/Auth";
 import HelpCentre from "./pages/HelpCentre";
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/qualifications" element={<Qualifications />} />
               <Route path="/find-training" element={<FindTraining />} />
+              <Route path="/find-workers" element={<FindWorkers />} />
               <Route path="/set-reminders" element={<SetReminders />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/help-centre" element={<HelpCentre />} />
