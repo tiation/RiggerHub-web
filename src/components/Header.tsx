@@ -7,23 +7,27 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50">
+    <header className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-card/95">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 hover:opacity-80 transition-opacity group"
+            aria-label="RiggerHub Home"
+          >
+            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center group-hover:scale-105 transition-transform">
               <span className="text-primary-foreground font-bold text-sm">RH</span>
             </div>
             <span className="text-xl font-bold text-foreground">RiggerHub</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors">Find Jobs</Link>
-            <Link to="/profile" className="text-foreground hover:text-primary transition-colors">Profile</Link>
-            <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors">Qualifications</Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors">About</Link>
+          <nav className="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
+            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium">Find Jobs</Link>
+            <Link to="/profile" className="text-foreground hover:text-primary transition-colors font-medium">Profile</Link>
+            <Link to="/qualifications" className="text-foreground hover:text-primary transition-colors font-medium">Qualifications</Link>
+            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">About</Link>
           </nav>
 
           {/* Desktop Auth Buttons */}
@@ -35,7 +39,10 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary"
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md hover:bg-accent"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -43,7 +50,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-border mt-2 pt-4 pb-4">
+          <div id="mobile-menu" className="md:hidden border-t border-border mt-2 pt-4 pb-4">
             <nav className="flex flex-col space-y-4">
               <Link to="/jobs" className="text-foreground hover:text-primary transition-colors">Find Jobs</Link>
               <Link to="/profile" className="text-foreground hover:text-primary transition-colors">Profile</Link>

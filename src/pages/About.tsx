@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Target, Users, Shield, Award, Handshake } from "lucide-react";
@@ -49,6 +50,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <Breadcrumbs />
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-primary to-primary-hover text-white py-20">

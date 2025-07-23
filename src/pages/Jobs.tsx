@@ -1,9 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, DollarSign, Building } from "lucide-react";
+import { MapPin, Clock, DollarSign, Building, Filter } from "lucide-react";
 
 const Jobs = () => {
   const jobs = [
@@ -45,6 +46,7 @@ const Jobs = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <Breadcrumbs />
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">Available Jobs</h1>
@@ -52,13 +54,22 @@ const Jobs = () => {
         </div>
 
         {/* Job Filters */}
-        <div className="mb-8 flex flex-wrap gap-4">
-          <Button variant="outline">All Jobs</Button>
-          <Button variant="outline">Rigger</Button>
-          <Button variant="outline">Dogger</Button>
-          <Button variant="outline">Crane Operator</Button>
-          <Button variant="outline">Mining</Button>
-          <Button variant="outline">Construction</Button>
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold">Filter Jobs</h2>
+            <Button variant="outline" size="sm">
+              <Filter className="w-4 h-4 mr-2" />
+              Advanced Filters
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="default" size="sm">All Jobs (12)</Button>
+            <Button variant="outline" size="sm">Rigger (5)</Button>
+            <Button variant="outline" size="sm">Dogger (3)</Button>
+            <Button variant="outline" size="sm">Crane Operator (4)</Button>
+            <Button variant="outline" size="sm">Mining (6)</Button>
+            <Button variant="outline" size="sm">Construction (6)</Button>
+          </div>
         </div>
 
         {/* Jobs List */}
@@ -68,7 +79,9 @@ const Jobs = () => {
               <CardHeader>
                 <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                   <div className="flex-1">
-                    <CardTitle className="text-xl mb-2">{job.title}</CardTitle>
+                    <CardTitle className="text-xl mb-2 hover:text-primary transition-colors cursor-pointer">
+                      {job.title}
+                    </CardTitle>
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-2">
                       <div className="flex items-center space-x-1">
                         <Building className="w-4 h-4" />
@@ -91,7 +104,10 @@ const Jobs = () => {
                       </div>
                     </div>
                   </div>
-                  <Button>Apply Now</Button>
+                  <div className="flex flex-col space-y-2">
+                    <Button className="w-full md:w-auto">Apply Now</Button>
+                    <Button variant="outline" size="sm" className="w-full md:w-auto">Save Job</Button>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
