@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { 
   FileText, 
   Search, 
@@ -75,12 +76,12 @@ const FeaturesSection = () => {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="border-border hover:shadow-lg transition-shadow duration-300">
+            <Card key={index} className="card-lift border-border hover:shadow-lg transition-all duration-300 group cursor-pointer animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
               <CardHeader>
-                <div className={`w-12 h-12 rounded-lg bg-accent flex items-center justify-center ${feature.color} mb-4`}>
+                <div className={`w-12 h-12 rounded-lg bg-accent flex items-center justify-center ${feature.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
                 </div>
-                <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
+                <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">{feature.description}</p>
@@ -113,9 +114,14 @@ const FeaturesSection = () => {
         <div className="text-center mt-16">
           <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Find Your Next Opportunity?</h3>
           <p className="text-muted-foreground mb-6">Join RiggerHub today and connect with top employers across WA.</p>
-          <Button size="lg" className="px-8 py-4 text-lg">
-            Create Your Profile
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="px-8 py-4 text-lg btn-glow hover-scale" asChild>
+              <Link to="/profile">Create Your Profile</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="px-8 py-4 text-lg hover-scale" asChild>
+              <Link to="/jobs">Browse Jobs</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
