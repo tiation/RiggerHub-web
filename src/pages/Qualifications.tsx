@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import { 
   Upload, 
   FileText, 
@@ -13,10 +17,88 @@ import {
   CheckCircle, 
   AlertTriangle,
   Plus,
-  Search
+  Search,
+  ExternalLink
 } from "lucide-react";
 
 const Qualifications = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    qualificationName: "",
+    certificateNumber: "",
+    issuingAuthority: "",
+    expiryDate: ""
+  });
+
+  const handleDownload = (qualName: string) => {
+    toast({
+      title: "Download Certificate",
+      description: `Downloading certificate for ${qualName}...`,
+    });
+  };
+
+  const handleRenew = (qualName: string) => {
+    toast({
+      title: "Renew Qualification",
+      description: `Redirecting to renewal process for ${qualName}...`,
+    });
+  };
+
+  const handleFindTraining = (qualName?: string) => {
+    const message = qualName 
+      ? `Searching for training providers for ${qualName}...`
+      : "Searching for available training courses...";
+    toast({
+      title: "Find Training",
+      description: message,
+    });
+  };
+
+  const handleLearnMore = (qualName: string) => {
+    toast({
+      title: "Learn More",
+      description: `Opening detailed information for ${qualName}...`,
+    });
+  };
+
+  const handleUploadCertificate = () => {
+    toast({
+      title: "Upload Certificate",
+      description: "File upload feature will be available soon.",
+    });
+  };
+
+  const handleSaveQualification = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.qualificationName || !formData.certificateNumber || !formData.issuingAuthority || !formData.expiryDate) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    toast({
+      title: "Qualification Saved",
+      description: `${formData.qualificationName} has been added to your profile.`,
+    });
+    
+    // Reset form
+    setFormData({
+      qualificationName: "",
+      certificateNumber: "",
+      issuingAuthority: "",
+      expiryDate: ""
+    });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
   const currentQuals = [
     { 
       name: "High Risk Work Licence - Rigging", 
@@ -78,15 +160,29 @@ const Qualifications = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Button className="h-16 flex-col space-y-2">
+          <Button 
+            className="h-16 flex-col space-y-2"
+            onClick={handleUploadCertificate}
+          >
             <Upload className="w-5 h-5" />
             <span>Upload Certificate</span>
           </Button>
-          <Button variant="outline" className="h-16 flex-col space-y-2">
+          <Button 
+            variant="outline" 
+            className="h-16 flex-col space-y-2"
+            onClick={() => handleFindTraining()}
+          >
             <Search className="w-5 h-5" />
             <span>Find Training</span>
           </Button>
-          <Button variant="outline" className="h-16 flex-col space-y-2">
+          <Button 
+            variant="outline" 
+            className="h-16 flex-col space-y-2"
+            onClick={() => toast({
+              title: "Set Reminders",
+              description: "Reminder notifications will be available soon.",
+            })}
+          >
             <Calendar className="w-5 h-5" />
             <span>Set Reminders</span>
           </Button>
@@ -130,7 +226,11 @@ const Qualifications = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleDownload(qual.name)}
+                        >
                           <Download className="w-4 h-4 mr-2" />
                           Download
                         </Button>
@@ -174,7 +274,10 @@ const Qualifications = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <Button size="sm">
+                        <Button 
+                          size="sm"
+                          onClick={() => handleRenew(qual.name)}
+                        >
                           Renew Now
                         </Button>
                         <Badge variant="destructive">
@@ -215,10 +318,17 @@ const Qualifications = () => {
                         </div>
                       </div>
                       <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleFindTraining(qual)}
+                        >
                           Find Training
                         </Button>
-                        <Button size="sm">
+                        <Button 
+                          size="sm"
+                          onClick={() => handleLearnMore(qual)}
+                        >
                           Learn More
                         </Button>
                       </div>
@@ -245,7 +355,7 @@ const Qualifications = () => {
                   <p className="text-muted-foreground mb-4">
                     Drag and drop your certificate files here, or click to browse
                   </p>
-                  <Button>
+                  <Button onClick={handleUploadCertificate}>
                     Choose Files
                   </Button>
                   <p className="text-xs text-muted-foreground mt-4">
@@ -253,55 +363,67 @@ const Qualifications = () => {
                   </p>
                 </div>
                 
-                <div className="space-y-4">
+                <form onSubmit={handleSaveQualification} className="space-y-4">
                   <h4 className="font-medium">Certificate Details</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
-                        Qualification Name
-                      </label>
-                      <input 
+                      <Label htmlFor="qualificationName">
+                        Qualification Name *
+                      </Label>
+                      <Input 
+                        id="qualificationName"
                         type="text" 
-                        className="w-full p-3 border border-border rounded-md bg-background"
+                        value={formData.qualificationName}
+                        onChange={(e) => handleInputChange("qualificationName", e.target.value)}
                         placeholder="e.g., High Risk Work Licence"
+                        required
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
-                        Certificate Number
-                      </label>
-                      <input 
+                      <Label htmlFor="certificateNumber">
+                        Certificate Number *
+                      </Label>
+                      <Input 
+                        id="certificateNumber"
                         type="text" 
-                        className="w-full p-3 border border-border rounded-md bg-background"
+                        value={formData.certificateNumber}
+                        onChange={(e) => handleInputChange("certificateNumber", e.target.value)}
                         placeholder="e.g., HRWL123456"
+                        required
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
-                        Issuing Authority
-                      </label>
-                      <input 
+                      <Label htmlFor="issuingAuthority">
+                        Issuing Authority *
+                      </Label>
+                      <Input 
+                        id="issuingAuthority"
                         type="text" 
-                        className="w-full p-3 border border-border rounded-md bg-background"
+                        value={formData.issuingAuthority}
+                        onChange={(e) => handleInputChange("issuingAuthority", e.target.value)}
                         placeholder="e.g., SafeWork SA"
+                        required
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
-                        Expiry Date
-                      </label>
-                      <input 
+                      <Label htmlFor="expiryDate">
+                        Expiry Date *
+                      </Label>
+                      <Input 
+                        id="expiryDate"
                         type="date" 
-                        className="w-full p-3 border border-border rounded-md bg-background"
+                        value={formData.expiryDate}
+                        onChange={(e) => handleInputChange("expiryDate", e.target.value)}
+                        required
                       />
                     </div>
                   </div>
                   
-                  <Button className="w-full">
+                  <Button type="submit" className="w-full">
                     <FileText className="w-4 h-4 mr-2" />
                     Save Qualification
                   </Button>
-                </div>
+                </form>
               </CardContent>
             </Card>
           </TabsContent>

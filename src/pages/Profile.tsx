@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 import { 
   User, 
   Mail, 
@@ -16,10 +18,33 @@ import {
   FileText, 
   Briefcase,
   Edit,
-  Upload
+  Upload,
+  ExternalLink
 } from "lucide-react";
 
 const Profile = () => {
+  const { toast } = useToast();
+
+  const handleEditProfile = () => {
+    toast({
+      title: "Edit Profile",
+      description: "Profile editing functionality will be available soon.",
+    });
+  };
+
+  const handleUploadQualification = () => {
+    toast({
+      title: "Upload Qualification",
+      description: "Redirecting to qualifications page...",
+    });
+  };
+
+  const handleSettingsAction = (action: string) => {
+    toast({
+      title: action,
+      description: "This feature will be available in the next update.",
+    });
+  };
   const userProfile = {
     name: "John Morrison",
     email: "john.morrison@email.com",
@@ -84,7 +109,7 @@ const Profile = () => {
                     <p className="text-lg text-muted-foreground mb-2">{userProfile.specialization}</p>
                     <Badge variant="secondary" className="mb-4">{userProfile.status}</Badge>
                   </div>
-                  <Button className="mt-4 md:mt-0">
+                  <Button onClick={handleEditProfile} className="mt-4 md:mt-0">
                     <Edit className="w-4 h-4 mr-2" />
                     Edit Profile
                   </Button>
@@ -124,10 +149,13 @@ const Profile = () => {
           <TabsContent value="qualifications" className="space-y-4">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Qualifications & Certifications</h2>
-              <Button variant="outline">
-                <Upload className="w-4 h-4 mr-2" />
-                Upload New
-              </Button>
+              <Link to="/qualifications">
+                <Button variant="outline">
+                  <Upload className="w-4 h-4 mr-2" />
+                  Manage Qualifications
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
             
             <div className="grid gap-4">
@@ -199,13 +227,25 @@ const Profile = () => {
                   <CardTitle>Availability Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => handleSettingsAction("Update Availability Status")}
+                  >
                     Update Availability Status
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => handleSettingsAction("Set Location Preferences")}
+                  >
                     Set Location Preferences
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => handleSettingsAction("Configure Job Alerts")}
+                  >
                     Configure Job Alerts
                   </Button>
                 </CardContent>
@@ -216,15 +256,26 @@ const Profile = () => {
                   <CardTitle>Account Settings</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => handleSettingsAction("Change Password")}
+                  >
                     Change Password
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => handleSettingsAction("Update Contact Information")}
+                  >
                     Update Contact Information
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    Privacy Settings
-                  </Button>
+                  <Link to="/privacy" className="block">
+                    <Button variant="outline" className="w-full justify-start">
+                      Privacy Settings
+                      <ExternalLink className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </div>
