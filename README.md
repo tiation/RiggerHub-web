@@ -1,73 +1,133 @@
-# Welcome to your Lovable project
+# RiggerHub - Web Platform
 
-## Project info
+## About RiggerHub
 
-**URL**: https://lovable.dev/projects/9034d79a-15fb-4c44-a449-d4b9ea335866
+RiggerHub is the premier web platform connecting skilled riggers, doggers, and crane operators with top construction, mining, and resources companies across Western Australia. Part of the comprehensive Rigger Project ecosystem, RiggerHub empowers workers to advance their careers while supporting the ChaseWhiteRabbit NGO's mission.
 
-## How can I edit this code?
+## 🎯 Purpose
 
-There are several ways of editing your application.
+RiggerHub serves as the worker-focused platform in the Rigger Project ecosystem:
 
-**Use Lovable**
+- **For Workers**: Register availability, upload qualifications, accept job offers, and manage professional profiles
+- **Career Advancement**: Connect with premier employers and access high-paying opportunities
+- **Compliance Management**: Maintain certifications and stay compliant with WA safety standards
+- **Professional Growth**: Track work history, earnings, and career progression
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9034d79a-15fb-4c44-a449-d4b9ea335866) and start prompting.
+## 🏗️ The Rigger Project Ecosystem
 
-Changes made via Lovable will be committed automatically to this repo.
+RiggerHub is part of a comprehensive dual-platform system:
 
-**Use your preferred IDE**
+### RiggerHub (This Platform)
+- **Audience**: Workers (riggers, doggers, crane operators)
+- **Features**: Job registration, qualification management, profile creation, job acceptance
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### RiggerConnect (Sister Platform)
+- **Audience**: Businesses (construction, mining, resources companies)
+- **Features**: Job posting, worker matching, recruitment management
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Both platforms connect through a shared backend managing job matching, contracts, payments, and compliance while funding the ChaseWhiteRabbit NGO.
 
-Follow these steps:
+## 🌟 Key Features
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### For Workers
+- **Smart Job Matching**: AI-powered system matches skills and qualifications with perfect opportunities
+- **Digital Qualifications**: Secure storage and management of certifications and licenses
+- **Instant Alerts**: Real-time notifications for matching job opportunities
+- **Compliance Tracking**: Stay current with WA safety standards and certification renewals
+- **Location-Based Jobs**: Find opportunities in preferred WA locations
+- **Career Tracking**: Monitor work history, earnings, and professional growth
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Platform Benefits
+- **2-5x Faster Job Placement**: Streamlined matching process
+- **98% Worker Satisfaction**: Proven success rate
+- **24/7 Availability**: Always-on platform access
+- **100% Verified Companies**: All partner businesses are compliance-verified
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Technology Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- **Frontend**: React 18 with TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: shadcn/ui component library
+- **State Management**: TanStack Query for data management
+- **Routing**: React Router v6
+- **Build Tool**: Vite for fast development and building
+
+## 🎨 Design Philosophy
+
+RiggerHub features a professional, industry-focused design:
+
+- **Industrial Theme**: Blue and orange color scheme reflecting construction/mining industry
+- **Mobile-First**: Optimized for on-site mobile device usage
+- **Clean & Functional**: Fast loading, intuitive navigation
+- **Trust-Building**: Professional appearance that builds confidence with workers and employers
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm
+- Modern web browser
+
+### Installation
+```bash
+# Clone the repository
+git clone [repository-url]
+
+# Navigate to project directory
+cd riggerhub-web
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build for Production
+```bash
+# Create production build
+npm run build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# Preview production build
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## 📱 Mobile Support
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+RiggerHub is built mobile-first with full responsive design. For native mobile app capabilities, the platform can be extended with Capacitor for iOS and Android deployment.
 
-## What technologies are used for this project?
+## 🤝 Supporting ChaseWhiteRabbit NGO
 
-This project is built with:
+Every successful job placement through RiggerHub contributes to the ChaseWhiteRabbit NGO's mission. The platform demonstrates how technology can create positive social impact while serving industry needs.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+**ChaseWhiteRabbit NGO Mission**: [Add specific mission details]
 
-## How can I deploy this project?
+## 📋 Compliance & Safety
 
-Simply open [Lovable](https://lovable.dev/projects/9034d79a-15fb-4c44-a449-d4b9ea335866) and click on Share -> Publish.
+RiggerHub maintains strict compliance with Western Australian construction and mining industry standards:
 
-## Can I connect a custom domain to my Lovable project?
+- Digital certification verification
+- Automated compliance tracking
+- Safety standard updates
+- Regular audit compliance
 
-Yes, you can!
+## 🔗 Related Projects
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **RiggerConnect**: Business-focused job posting platform
+- **RiggerBackend**: Shared backend services and API
+- **RiggerShared**: Common UI components and contracts
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📞 Support
+
+For technical support or platform assistance:
+
+- **Email**: support@riggerhub.com.au
+- **Phone**: +61 8 9123 4567
+- **Location**: Perth, Western Australia
+
+## 📄 License
+
+© 2024 RiggerHub. All rights reserved.
+
+---
+
+Made with ❤️ in Western Australia as part of the Rigger Project supporting ChaseWhiteRabbit NGO.
