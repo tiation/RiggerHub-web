@@ -22,7 +22,9 @@ export type Database = {
           experience_years: number | null
           full_name: string | null
           id: string
+          latitude: number | null
           location: string | null
+          longitude: number | null
           phone: string | null
           position: string | null
           updated_at: string
@@ -35,7 +37,9 @@ export type Database = {
           experience_years?: number | null
           full_name?: string | null
           id?: string
+          latitude?: number | null
           location?: string | null
+          longitude?: number | null
           phone?: string | null
           position?: string | null
           updated_at?: string
@@ -48,7 +52,9 @@ export type Database = {
           experience_years?: number | null
           full_name?: string | null
           id?: string
+          latitude?: number | null
           location?: string | null
+          longitude?: number | null
           phone?: string | null
           position?: string | null
           updated_at?: string

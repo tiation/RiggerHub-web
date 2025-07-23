@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Session } from '@supabase/supabase-js';
+import { getUserLocation, GeolocationData } from "@/utils/geolocation";
 import { 
   Lock, 
   Mail, 
@@ -23,7 +24,9 @@ import {
   Shield,
   CheckCircle,
   AlertCircle,
-  ArrowRight
+  ArrowRight,
+  Navigation,
+  Loader2
 } from "lucide-react";
 
 const Auth = () => {
@@ -52,6 +55,11 @@ const Auth = () => {
     phone: "",
     location: ""
   });
+
+  // Location detection state
+  const [locationData, setLocationData] = useState<GeolocationData | null>(null);
+  const [locationStatus, setLocationStatus] = useState<'idle' | 'detecting' | 'success' | 'error' | 'manual'>('idle');
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   // Auth state management
   useEffect(() => {
@@ -161,6 +169,60 @@ const Auth = () => {
     }
   };
 
+  // Location detection function
+  const detectLocation = async () => {
+    if (locationStatus === 'detecting') return;
+    
+    setLocationStatus('detecting');
+    setLocationError(null);
+    
+    try {
+      const result = await getUserLocation({
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000
+      });
+      
+      if (result.location) {
+        setLocationData(result.location);
+        setLocationStatus('success');
+        
+        // Update location field with readable coordinates if no location text is provided
+        if (!signUpData.location.trim()) {
+          setSignUpData(prev => ({
+            ...prev,
+            location: `${result.location!.latitude.toFixed(4)}, ${result.location!.longitude.toFixed(4)}`
+          }));
+        }
+        
+        toast({
+          title: "Location Detected",
+          description: "Your location has been automatically detected and will be stored for better job matching.",
+        });
+      } else {
+        setLocationStatus('error');
+        setLocationError(result.error || 'Failed to detect location');
+        
+        if (result.requiresManualEntry) {
+          toast({
+            title: "Location Detection Failed",
+            description: "Please enter your location manually. This helps us find relevant job opportunities for you.",
+            variant: "destructive",
+          });
+        }
+      }
+    } catch (error: any) {
+      setLocationStatus('error');
+      setLocationError(error.message || 'Failed to detect location');
+      
+      toast({
+        title: "Location Detection Error",
+        description: "Please enter your location manually. This helps us find relevant job opportunities for you.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -199,18 +261,27 @@ const Auth = () => {
 
       const redirectUrl = `${window.location.origin}/`;
       
+      // Prepare metadata including coordinates if available
+      const metadata: any = {
+        full_name: signUpData.fullName,
+        company: signUpData.company,
+        position: signUpData.position,
+        phone: signUpData.phone,
+        location: signUpData.location
+      };
+      
+      // Add coordinates if detected
+      if (locationData) {
+        metadata.latitude = locationData.latitude.toString();
+        metadata.longitude = locationData.longitude.toString();
+      }
+      
       const { data, error } = await supabase.auth.signUp({
         email: signUpData.email,
         password: signUpData.password,
         options: {
           emailRedirectTo: redirectUrl,
-          data: {
-            full_name: signUpData.fullName,
-            company: signUpData.company,
-            position: signUpData.position,
-            phone: signUpData.phone,
-            location: signUpData.location
-          }
+          data: metadata
         }
       });
 
@@ -532,16 +603,52 @@ const Auth = () => {
                         <Label htmlFor="signup-location" className="text-sm font-medium">
                           Location
                         </Label>
-                        <div className="relative">
-                          <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="signup-location"
-                            type="text"
-                            placeholder="Perth, WA"
-                            value={signUpData.location}
-                            onChange={(e) => setSignUpData(prev => ({ ...prev, location: e.target.value }))}
-                            className="pl-10"
-                          />
+                        <div className="space-y-2">
+                          <div className="relative">
+                            <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="signup-location"
+                              type="text"
+                              placeholder="Perth, WA"
+                              value={signUpData.location}
+                              onChange={(e) => setSignUpData(prev => ({ ...prev, location: e.target.value }))}
+                              className="pl-10 pr-12"
+                            />
+                            {locationStatus === 'success' && (
+                              <CheckCircle className="absolute right-3 top-3 h-4 w-4 text-success" />
+                            )}
+                            {locationStatus === 'error' && (
+                              <AlertCircle className="absolute right-3 top-3 h-4 w-4 text-destructive" />
+                            )}
+                          </div>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={detectLocation}
+                            disabled={locationStatus === 'detecting'}
+                            className="w-full text-xs"
+                          >
+                            {locationStatus === 'detecting' ? (
+                              <>
+                                <Loader2 className="w-3 h-3 mr-2 animate-spin" />
+                                Detecting Location...
+                              </>
+                            ) : (
+                              <>
+                                <Navigation className="w-3 h-3 mr-2" />
+                                Detect My Location
+                              </>
+                            )}
+                          </Button>
+                          {locationError && (
+                            <p className="text-xs text-destructive">{locationError}</p>
+                          )}
+                          {locationData && (
+                            <p className="text-xs text-muted-foreground">
+                              📍 Coordinates: {locationData.latitude.toFixed(4)}, {locationData.longitude.toFixed(4)}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>

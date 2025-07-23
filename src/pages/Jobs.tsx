@@ -6,8 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Clock, DollarSign, Building, Filter, Search, Bookmark, Heart, Star, TrendingUp } from "lucide-react";
-import { useState } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import LocationPermissionManager, { LocationData } from "@/components/ui/location-permission-manager";
+import { useLocationPermission } from "@/hooks/use-location-permission";
+import { MapPin, Clock, DollarSign, Building, Filter, Search, Bookmark, Heart, Star, TrendingUp, Navigation, MapIcon, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
@@ -16,7 +19,40 @@ const Jobs = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [savedJobs, setSavedJobs] = useState<number[]>([]);
+  const [showLocationManager, setShowLocationManager] = useState(false);
+  const [userLocation, setUserLocation] = useState<LocationData | null>(null);
+  const [distanceFilter, setDistanceFilter] = useState<string>("");
   const { toast } = useToast();
+  
+  // Use location permission hook for automatic detection
+  const {
+    location: detectedLocation,
+    permissionStatus,
+    isLoading: locationLoading,
+    error: locationError,
+    requestLocation,
+    clearLocation
+  } = useLocationPermission({});
+  
+  // Update user location when detected
+  useEffect(() => {
+    if (detectedLocation) {
+      setUserLocation(detectedLocation);
+    }
+  }, [detectedLocation]);
+
+  // Calculate distance between two coordinates (Haversine formula)
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
 
   const jobs = [
     {
@@ -24,6 +60,7 @@ const Jobs = () => {
       title: "Senior Rigger - Mining Operation",
       company: "BHP Iron Ore",
       location: "Port Hedland, WA",
+      coordinates: { latitude: -20.3099, longitude: 118.5974 }, // Port Hedland coordinates
       salary: "$120,000 - $140,000",
       type: "Full-time",
       posted: "2 days ago",
@@ -39,6 +76,7 @@ const Jobs = () => {
       title: "Dogger - Construction Project",
       company: "Multiplex Construction",
       location: "Perth CBD, WA",
+      coordinates: { latitude: -31.9505, longitude: 115.8605 }, // Perth coordinates
       salary: "$95,000 - $110,000",
       type: "Contract",
       posted: "1 week ago",
@@ -54,6 +92,7 @@ const Jobs = () => {
       title: "Crane Operator - Infrastructure",
       company: "CPB Contractors",
       location: "Kalgoorlie, WA",
+      coordinates: { latitude: -30.7461, longitude: 121.4715 }, // Kalgoorlie coordinates
       salary: "$130,000 - $150,000",
       type: "Full-time",
       posted: "3 days ago",
@@ -69,6 +108,7 @@ const Jobs = () => {
       title: "Scaffolder - Oil & Gas",
       company: "Worley Limited",
       location: "Karratha, WA",
+      coordinates: { latitude: -20.7364, longitude: 116.8460 }, // Karratha coordinates
       salary: "$110,000 - $125,000",
       type: "Full-time",
       posted: "5 days ago",
@@ -84,6 +124,7 @@ const Jobs = () => {
       title: "Rigger/Dogger Combo - Mining",
       company: "Rio Tinto",
       location: "Tom Price, WA",
+      coordinates: { latitude: -22.6932, longitude: 117.7967 }, // Tom Price coordinates
       salary: "$135,000 - $155,000",
       type: "Full-time",
       posted: "1 day ago",
@@ -119,12 +160,66 @@ const Jobs = () => {
     });
   };
 
-  const filteredJobs = jobs.filter(job => {
+  // Handle location detection
+  const handleLocationDetection = () => {
+    setShowLocationManager(true);
+  };
+
+  const handleLocationChange = (location: LocationData | null) => {
+    setUserLocation(location);
+    setShowLocationManager(false);
+    if (location) {
+      toast({
+        title: "Location Updated",
+        description: location.address ? 
+          `Location set to ${location.address}` : 
+          "Location detected successfully",
+      });
+    }
+  };
+
+  // Enhanced job filtering with distance calculation and sorting
+  const getJobsWithDistance = () => {
+    return jobs.map(job => {
+      let distance = null;
+      if (userLocation?.latitude && userLocation?.longitude && job.coordinates) {
+        distance = calculateDistance(
+          userLocation.latitude,
+          userLocation.longitude,
+          job.coordinates.latitude,
+          job.coordinates.longitude
+        );
+      }
+      return { ...job, distance };
+    });
+  };
+
+  const filteredJobs = getJobsWithDistance().filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesLocation = !selectedLocation || selectedLocation === "all-locations" || job.location.includes(selectedLocation);
     const matchesType = !selectedType || selectedType === "all-types" || job.type === selectedType;
-    return matchesSearch && matchesLocation && matchesType;
+    
+    // Distance filtering
+    const matchesDistance = !distanceFilter || !job.distance || (
+      distanceFilter === "10" && job.distance <= 10 ||
+      distanceFilter === "25" && job.distance <= 25 ||
+      distanceFilter === "50" && job.distance <= 50 ||
+      distanceFilter === "100" && job.distance <= 100
+    );
+    
+    return matchesSearch && matchesLocation && matchesType && matchesDistance;
+  }).sort((a, b) => {
+    // Sort by distance if user location is available
+    if (userLocation?.latitude && a.distance !== null && b.distance !== null) {
+      return a.distance - b.distance;
+    }
+    // Otherwise sort by featured, then urgent, then date
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    if (a.urgent && !b.urgent) return -1;
+    if (!a.urgent && b.urgent) return 1;
+    return 0;
   });
 
   const jobStats = {
@@ -211,25 +306,81 @@ const Jobs = () => {
                       <SelectItem value="Casual">Casual</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Button variant="outline" className="hover-scale">
-                    <Filter className="w-4 h-4 mr-2" />
-                    More Filters
+                  <Button 
+                    variant="outline" 
+                    className="hover-scale" 
+                    onClick={handleLocationDetection}
+                  >
+                    <Navigation className="w-4 h-4 mr-2" />
+                    Near Me
                   </Button>
                 </div>
                 
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
-                    Rigger ({jobs.filter(j => j.category === 'rigger').length})
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
-                    Dogger ({jobs.filter(j => j.category === 'dogger').length})
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
-                    Crane Operator ({jobs.filter(j => j.category === 'crane-operator').length})
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
-                    Scaffolder ({jobs.filter(j => j.category === 'scaffolder').length})
-                  </Badge>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
+                      Rigger ({jobs.filter(j => j.category === 'rigger').length})
+                    </Badge>
+                    <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
+                      Dogger ({jobs.filter(j => j.category === 'dogger').length})
+                    </Badge>
+                    <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
+                      Crane Operator ({jobs.filter(j => j.category === 'crane-operator').length})
+                    </Badge>
+                    <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
+                      Scaffolder ({jobs.filter(j => j.category === 'scaffolder').length})
+                    </Badge>
+                  </div>
+                  
+                  {/* Location Status and Distance Filter */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    {userLocation && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <MapIcon className="h-4 w-4" />
+                        <span>
+                          {userLocation.address || 
+                           (userLocation.latitude && userLocation.longitude ? 
+                            `${userLocation.latitude.toFixed(4)}, ${userLocation.longitude.toFixed(4)}` : 
+                            'Location detected')}
+                        </span>
+                        <Badge variant="secondary" className="text-xs">
+                          {userLocation.isManual ? 'Manual' : 'Auto'}
+                        </Badge>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => setUserLocation(null)}
+                          className="h-6 w-6 p-0 hover:bg-destructive/20"
+                        >
+                          ×
+                        </Button>
+                      </div>
+                    )}
+                    
+                    {userLocation && (
+                      <Select value={distanceFilter} onValueChange={setDistanceFilter}>
+                        <SelectTrigger className="w-48">
+                          <SelectValue placeholder="Filter by distance" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">All distances</SelectItem>
+                          <SelectItem value="10">Within 10 km</SelectItem>
+                          <SelectItem value="25">Within 25 km</SelectItem>
+                          <SelectItem value="50">Within 50 km</SelectItem>
+                          <SelectItem value="100">Within 100 km</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                    
+                    {locationError && (
+                      <Alert className="max-w-md">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="text-sm">
+                          {locationError}
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -295,6 +446,11 @@ const Jobs = () => {
                         <div className="flex items-center space-x-1">
                           <MapPin className="w-4 h-4" />
                           <span>{job.location}</span>
+                          {job.distance && (
+                            <Badge variant="outline" className="text-xs ml-2">
+                              {job.distance.toFixed(1)} km away
+                            </Badge>
+                          )}
                         </div>
                         <div className="flex items-center space-x-1">
                           <Clock className="w-4 h-4" />
@@ -421,6 +577,39 @@ const Jobs = () => {
           )}
         </div>
       </main>
+      
+      {/* Location Permission Manager Modal */}
+      {showLocationManager && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-background rounded-lg max-w-md w-full">
+            <div className="p-4 border-b">
+              <h3 className="text-lg font-semibold">Find Jobs Near You</h3>
+              <p className="text-sm text-muted-foreground">
+                Allow location access to find jobs in your area and see distance information
+              </p>
+            </div>
+            <div className="p-4">
+              <LocationPermissionManager
+                onLocationChange={handleLocationChange}
+                showManualEntry={true}
+                allowSkip={true}
+                title="Your Location"
+                description="This helps us show you relevant jobs nearby and calculate distances."
+              />
+            </div>
+            <div className="p-4 border-t">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowLocationManager(false)}
+                className="w-full"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <Footer />
     </div>
   );
