@@ -1,4 +1,8 @@
-# RiggerHub - Web Platform
+# 🗄️ ARCHIVED - RiggerHub - Web Platform
+
+> **⚠️ This repository has been ARCHIVED. Please visit [RiggerConnect-web](https://github.com/tiation/RiggerConnect-web) for active development.**
+
+---
 
 ## About RiggerHub
 
