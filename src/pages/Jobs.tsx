@@ -122,8 +122,8 @@ const Jobs = () => {
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          job.company.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = !selectedLocation || job.location.includes(selectedLocation);
-    const matchesType = !selectedType || job.type === selectedType;
+    const matchesLocation = !selectedLocation || selectedLocation === "all-locations" || job.location.includes(selectedLocation);
+    const matchesType = !selectedType || selectedType === "all-types" || job.type === selectedType;
     return matchesSearch && matchesLocation && matchesType;
   });
 
@@ -191,7 +191,7 @@ const Jobs = () => {
                       <SelectValue placeholder="Location" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Locations</SelectItem>
+                      <SelectItem value="all-locations">All Locations</SelectItem>
                       <SelectItem value="Perth">Perth</SelectItem>
                       <SelectItem value="Port Hedland">Port Hedland</SelectItem>
                       <SelectItem value="Kalgoorlie">Kalgoorlie</SelectItem>
@@ -204,7 +204,7 @@ const Jobs = () => {
                       <SelectValue placeholder="Job Type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Types</SelectItem>
+                      <SelectItem value="all-types">All Types</SelectItem>
                       <SelectItem value="Full-time">Full-time</SelectItem>
                       <SelectItem value="Contract">Contract</SelectItem>
                       <SelectItem value="Part-time">Part-time</SelectItem>
