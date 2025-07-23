@@ -13,6 +13,9 @@ import Qualifications from "./pages/Qualifications";
 import FindTraining from "./pages/FindTraining";
 import SetReminders from "./pages/SetReminders";
 import Auth from "./pages/Auth";
+import HelpCentre from "./pages/HelpCentre";
+import ContactSupport from "./pages/ContactSupport";
+import Compliance from "./pages/Compliance";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -37,6 +40,9 @@ const App = () => (
               <Route path="/find-training" element={<FindTraining />} />
               <Route path="/set-reminders" element={<SetReminders />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/help-centre" element={<HelpCentre />} />
+              <Route path="/contact-support" element={<ContactSupport />} />
+              <Route path="/compliance" element={<Compliance />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<Privacy />} />

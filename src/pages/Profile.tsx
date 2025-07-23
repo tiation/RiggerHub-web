@@ -8,7 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/components/AuthProvider";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   User, 
   Mail, 
@@ -20,11 +23,59 @@ import {
   Briefcase,
   Edit,
   Upload,
-  ExternalLink
+  ExternalLink,
+  Building,
+  Clock
 } from "lucide-react";
 
 const Profile = () => {
+  const { user, loading } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [profile, setProfile] = useState<any>(null);
+  const [profileLoading, setProfileLoading] = useState(true);
+
+  
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+  }, [user, loading, navigate]);
+
+  // Fetch user profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (error && error.code !== 'PGRST116') {
+          console.error('Error fetching profile:', error);
+          toast({
+            title: "Profile Load Error",
+            description: "Unable to load profile data. Please try again.",
+            variant: "destructive",
+          });
+        } else {
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error('Profile fetch error:', error);
+      } finally {
+        setProfileLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchProfile();
+    }
+  }, [user, toast]);
 
   const handleEditProfile = () => {
     toast({
@@ -34,10 +85,7 @@ const Profile = () => {
   };
 
   const handleUploadQualification = () => {
-    toast({
-      title: "Upload Qualification",
-      description: "Redirecting to qualifications page...",
-    });
+    navigate('/qualifications');
   };
 
   const handleSettingsAction = (action: string) => {
@@ -46,13 +94,45 @@ const Profile = () => {
       description: "This feature will be available in the next update.",
     });
   };
+
+  // Loading states
+  if (loading || profileLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <Breadcrumbs />
+        <main className="container mx-auto px-4 py-8">
+          <div className="animate-pulse space-y-8">
+            <div className="bg-card rounded-lg p-6">
+              <div className="flex items-start space-x-6">
+                <div className="w-24 h-24 bg-muted rounded-full"></div>
+                <div className="flex-1">
+                  <div className="h-8 bg-muted rounded w-1/3 mb-2"></div>
+                  <div className="h-6 bg-muted rounded w-1/4 mb-4"></div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="h-4 bg-muted rounded"></div>
+                    <div className="h-4 bg-muted rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Get user data with fallbacks
   const userProfile = {
-    name: "John Morrison",
-    email: "john.morrison@email.com",
-    phone: "+61 400 123 456",
-    location: "Perth, WA",
-    experience: "8 years",
-    specialization: "Senior Rigger",
+    name: profile?.full_name || user?.email?.split('@')[0] || 'User',
+    email: user?.email || '',
+    phone: profile?.phone || 'Not provided',
+    location: profile?.location || 'Not specified',
+    company: profile?.company || 'Not specified',
+    position: profile?.position || 'Not specified',
+    experience: profile?.experience_years ? `${profile.experience_years} years` : 'Not specified',
+    bio: profile?.bio || 'No bio provided',
     status: "Available"
   };
 
@@ -65,17 +145,17 @@ const Profile = () => {
 
   const workHistory = [
     {
-      company: "Rio Tinto",
-      position: "Senior Rigger",
+      company: userProfile.company !== 'Not specified' ? userProfile.company : "Rio Tinto",
+      position: userProfile.position !== 'Not specified' ? userProfile.position : "Senior Rigger",
       duration: "2022 - 2024",
       project: "Iron Ore Expansion Project",
-      location: "Pilbara, WA"
+      location: userProfile.location !== 'Not specified' ? userProfile.location : "Pilbara, WA"
     },
     {
       company: "Fortescue Metals",
       position: "Rigger",
       duration: "2020 - 2022",
-      project: "Solomon Hub Operations",
+      project: "Solomon Hub Operations", 
       location: "Pilbara, WA"
     },
     {
@@ -107,7 +187,7 @@ const Profile = () => {
                 <div className="flex flex-col md:flex-row justify-between items-start mb-4">
                   <div>
                     <h1 className="text-2xl font-bold text-foreground mb-2 font-display">{userProfile.name}</h1>
-                    <p className="text-lg text-muted-foreground mb-2">{userProfile.specialization}</p>
+                    <p className="text-lg text-muted-foreground mb-2">{userProfile.position}</p>
                     <Badge variant="secondary" className="mb-4 animate-pulse-scale">{userProfile.status}</Badge>
                   </div>
                   <Button onClick={handleEditProfile} className="mt-4 md:mt-0 btn-glow hover-scale">
@@ -130,7 +210,11 @@ const Profile = () => {
                     <span>{userProfile.location}</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Briefcase className="w-4 h-4 text-muted-foreground" />
+                    <Building className="w-4 h-4 text-muted-foreground" />
+                    <span>{userProfile.company}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-4 h-4 text-muted-foreground" />
                     <span>{userProfile.experience} experience</span>
                   </div>
                 </div>

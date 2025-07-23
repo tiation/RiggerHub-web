@@ -43,7 +43,7 @@ const HeroSection = () => {
                 {user ? "View Profile" : "Get Started"}
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary hover-scale" asChild>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-white/60 text-white hover:bg-white hover:text-primary hover-scale bg-white/10 backdrop-blur-sm" asChild>
               <Link to="/jobs">
                 Browse Jobs
               </Link>
