@@ -2,6 +2,26 @@
 
 > **⚠️ This repository has been ARCHIVED. Please visit [RiggerConnect-web](https://github.com/tiation/RiggerConnect-web) for active development.**
 
+## 🌐 Live Deployment
+
+**🚀 View the live site:** [https://riggerhub-web.netlify.app](https://riggerhub-web.netlify.app)
+
+### Testing Instructions
+
+To access and test the deployed RiggerHub platform:
+
+1. **Access the Site**: Click the deployment link above or navigate to `https://riggerhub-web.netlify.app`
+2. **Mobile Testing**: The platform is mobile-first - test on various device sizes for optimal experience
+3. **Key Features to Test**:
+   - Worker registration flow
+   - Job browsing and filtering
+   - Profile management interface
+   - Responsive design across devices
+4. **Browser Compatibility**: Tested on Chrome, Firefox, Safari, and Edge
+5. **Performance**: The site is optimized for fast loading, even on slower connections
+
+> **Note**: This is a demonstration deployment of the archived codebase. For the latest active development, please visit the RiggerConnect-web repository.
+
 ---
 
 ## About RiggerHub
@@ -46,6 +66,51 @@ Both platforms connect through a shared backend managing job matching, contracts
 - **98% Worker Satisfaction**: Proven success rate
 - **24/7 Availability**: Always-on platform access
 - **100% Verified Companies**: All partner businesses are compliance-verified
+
+## 🔗 Related Repositories
+
+### Core Platform Components
+
+| Repository | Platform | Description | GitHub SSH URL |
+|------------|----------|-------------|----------------|
+| **RiggerBackend** | API | Core backend services and APIs | `git@github.com:tiation/RiggerBackend.git` |
+| **RiggerConnect-web** | Web | Professional networking platform | `git@github.com:tiation/RiggerConnect-web.git` |
+| **RiggerConnect-android** | Android | Mobile networking app | `git@github.com:tiation/RiggerConnect-android.git` |
+| **RiggerConnect-ios** | iOS | Mobile networking app | `git@github.com:tiation/RiggerConnect-ios.git` |
+| **RiggerHub-android** | Android | Mobile operations hub | `git@github.com:tiation/RiggerHub-android.git` |
+| **RiggerHub-ios** | iOS | Mobile operations hub | `git@github.com:tiation/RiggerHub-ios.git` |
+| **RiggerShared** | Multi-platform | Shared libraries and components | `git@github.com:tiation/RiggerShared.git` |
+
+### Enterprise Integration Architecture
+
+```mermaid
+graph TB
+    RB[RiggerBackend<br/>Core API Services] --> RCW[RiggerConnect-web]
+    RB --> RCA[RiggerConnect-android]
+    RB --> RCI[RiggerConnect-ios]
+    RB --> RHW[RiggerHub-web]
+    RB --> RHA[RiggerHub-android]
+    RB --> RHI[RiggerHub-ios]
+    RS[RiggerShared<br/>Common Libraries] --> RCW
+    RS --> RCA
+    RS --> RCI
+    RS --> RHW
+    RS --> RHA
+    RS --> RHI
+    
+    style RHW fill:#00FFFF,color:#000
+    style RB fill:#FF00FF,color:#000
+    style RS fill:#00FF00,color:#000
+```
+
+### ChaseWhiteRabbit NGO License Framework
+
+All repositories in the Rigger ecosystem are licensed under **GPL v3**, ensuring:
+- ✅ **Open Source Transparency**: Complete code visibility and community auditing
+- ✅ **Ethical Technology Standards**: Algorithmic fairness and bias prevention
+- ✅ **Worker Empowerment Focus**: Technology serving users, not corporate profits
+- ✅ **Community Ownership**: Improvements benefit the entire rigger community
+- ✅ **Corporate Responsibility**: Commercial use must remain open and accessible
 
 ## 🛠️ Technology Stack
 
