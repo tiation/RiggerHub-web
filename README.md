@@ -342,7 +342,7 @@ For inquiries related to the Rigger ecosystem, please contact our primary mainta
 - **Background**: Rigger crane operator and heavy vehicle mechanic based in Karratha, WA
 - **Expertise**: Brings extensive hands-on experience from Western Australia's mining and construction industry, providing real-world insights into rigger operations, safety protocols, and workforce challenges
 
-#### **Tia** - Technical Lead & NGO Coordinator  
+#### **Tia Astor** - Technical Lead & NGO Coordinator  
 - **Email**: [tiatheone@protonmail.com](mailto:tiatheone@protonmail.com)
 - **Background**: Swedish software developer working with NGO ChaseWhiteRabbit
 - **Expertise**: Leads the technical architecture and development while ensuring the platform aligns with ChaseWhiteRabbit NGO's ethical technology standards and social impact mission
