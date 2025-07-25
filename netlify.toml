@@ -1,0 +1,136 @@
+[build]
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NODE_ENV = "production"
+  VITE_APP_ENV = "production"
+
+# Redirects for Single Page Application
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API redirects (if using proxy to backend)
+[[redirects]]
+  from = "/api/*"
+  to = "https://riggerbackend.tiation.net/:splat"
+  status = 200
+  force = true
+
+# Enterprise-grade security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Frame protection
+    X-Frame-Options = "DENY"
+    
+    # XSS protection
+    X-XSS-Protection = "1; mode=block"
+    
+    # MIME type sniffing protection
+    X-Content-Type-Options = "nosniff"
+    
+    # Referrer policy for privacy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Strict transport security (HTTPS only)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy (Enterprise grade)
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      img-src 'self' data: https: blob:;
+      font-src 'self' https://fonts.gstatic.com;
+      connect-src 'self' https://*.supabase.co https://*.tiation.net wss://*.supabase.co;
+      media-src 'self' https:;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      upgrade-insecure-requests;
+    """
+    
+    # Permissions policy for modern browsers
+    Permissions-Policy = """
+      accelerometer=(),
+      ambient-light-sensor=(),
+      autoplay=(),
+      battery=(),
+      camera=(),
+      cross-origin-isolated=(),
+      display-capture=(),
+      document-domain=(),
+      encrypted-media=(),
+      execution-while-not-rendered=(),
+      execution-while-out-of-viewport=(),
+      fullscreen=(),
+      geolocation=(),
+      gyroscope=(),
+      keyboard-map=(),
+      magnetometer=(),
+      microphone=(),
+      midi=(),
+      navigation-override=(),
+      payment=(),
+      picture-in-picture=(),
+      publickey-credentials-get=(),
+      screen-wake-lock=(),
+      sync-xhr=(),
+      usb=(),
+      web-share=(),
+      xr-spatial-tracking=()
+    """
+
+# Cache optimization for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache optimization for build artifacts
+[[headers]]
+  for = "/dist/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Service worker caching
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Preload critical resources
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Link = """
+      </assets/main.css>; rel=preload; as=style,
+      </assets/main.js>; rel=preload; as=script
+    """
+
+# Environment-specific build settings
+[context.production]
+  command = ""
+
+[context.staging]
+  command = ""
+
+[context.branch-deploy]
+  command = ""
+
+# Functions configuration for edge functions
+[functions]
+  directory = "netlify/functions"
+  
+# Edge functions for enhanced performance
+[[edge_functions]]
+  function = "geolocation"
+  path = "/api/location/*"
+
+# Forms handling for contact forms
+[forms]
+  spam_filter = true
