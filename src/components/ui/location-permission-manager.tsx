@@ -72,6 +72,7 @@ const LocationPermissionManager: React.FC<LocationPermissionManagerProps> = ({
   // Check permission status on mount
   useEffect(() => {
     checkLocationPermission();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Notify parent of permission changes
@@ -134,7 +135,7 @@ const LocationPermissionManager: React.FC<LocationPermissionManagerProps> = ({
         isManual: false
       });
       setPermissionStatus('granted');
-    } catch (error: any) {
+    } catch (error: unknown) {
       setIsDetecting(false);
       handleLocationError(error);
     } finally {
@@ -157,19 +158,25 @@ const LocationPermissionManager: React.FC<LocationPermissionManagerProps> = ({
         timestamp: position.timestamp,
         isManual: false
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       handleLocationError(error);
     } finally {
       setIsDetecting(false);
     }
   };
 
-  const handleLocationError = (error: any) => {
+  const handleLocationError = (error: unknown) => {
     setPermissionStatus('error');
     
-    let message = error.message || 'Failed to get your location';
+    let message = 'Failed to get your location';
     
-    switch (error.code) {
+    if (error && typeof error === 'object' && 'message' in error) {
+      message = (error as { message: string }).message;
+    }
+    
+    const errorCode = error && typeof error === 'object' && 'code' in error ? (error as { code: number }).code : undefined;
+    
+    switch (errorCode) {
       case GEOLOCATION_ERRORS.PERMISSION_DENIED:
         message = 'Location access was denied. You can manually enter your location below or enable location services in your browser settings.';
         break;

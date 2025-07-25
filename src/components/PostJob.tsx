@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -91,12 +91,7 @@ const PostJob: React.FC<PostJobProps> = ({ onSubmit, onCancel, className = "" })
     'other'
   ];
 
-  // Auto-populate location from user profile on component mount
-  useEffect(() => {
-    loadUserLocationFromProfile();
-  }, []);
-
-  const loadUserLocationFromProfile = async () => {
+  const loadUserLocationFromProfile = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -169,7 +164,12 @@ const PostJob: React.FC<PostJobProps> = ({ onSubmit, onCancel, className = "" })
       setLocationStatus('error');
       setLocationError('Failed to load location data');
     }
-  };
+  }, [toast]);
+
+  // Auto-populate location from user profile on component mount
+  useEffect(() => {
+    loadUserLocationFromProfile();
+  }, [loadUserLocationFromProfile]);
 
   const handleLocationChange = (location: LocationData | null) => {
     setUserLocation(location);
@@ -290,10 +290,10 @@ const PostJob: React.FC<PostJobProps> = ({ onSubmit, onCancel, className = "" })
         description: "Your job posting has been created and will be reviewed before going live.",
       });
 
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: "Error Posting Job",
-        description: error.message || "An unexpected error occurred. Please try again.",
+        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {

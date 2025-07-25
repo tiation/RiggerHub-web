@@ -3,6 +3,7 @@
 ### **Enterprise-Grade, Ethical, Striking Design by ChaseWhiteRabbit NGO**
 *Operations Management Hub for Construction Industry Professionals*
 
+[![GitLab CI/CD](https://gitlab.sxc.codes/tiation/RiggerHub-web/badges/main/pipeline.svg)](https://gitlab.sxc.codes/tiation/RiggerHub-web/-/pipelines)
 [![ChaseWhiteRabbit NGO](https://img.shields.io/badge/ChaseWhiteRabbit_NGO-Ethical_Tech-FF6B35.svg)](https://chasewhiterabbit.org)
 [![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade_Architecture-0066CC.svg)](#)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -439,3 +440,54 @@ This software is part of the Rigger Project ecosystem supporting ethical technol
 
 **🌟 Made with ethical technology in Western Australia**  
 **Supporting ChaseWhiteRabbit NGO's mission for transparent, worker-first technology**
+
+## 🌟 Project Vision: Empowering Industry Through Ethical Technology
+
+### How This Platform Serves Jack Jonas and the Rigging Industry
+
+RiggerHub represents a revolutionary approach to worker empowerment in Western Australia's construction and mining sectors. For skilled riggers like Jack Jonas, this platform provides:
+
+- **Worker-Centric Job Discovery**: Advanced search and filtering tools that help riggers find opportunities that match their skills, location preferences, and career goals
+- **Professional Profile Management**: Comprehensive digital portfolio system that showcases rigger expertise, certifications, and work history to potential employers
+- **Real-Time Opportunity Alerts**: Instant notifications for matching job opportunities, ensuring riggers never miss career-advancing opportunities
+- **Certification Tracking**: Digital management of safety certifications and compliance requirements, simplifying the administrative burden of rigging work
+- **Career Analytics**: Insightful tracking of application success rates, earnings trends, and career progression to support informed decision-making
+- **Industry Networking**: Professional connections with employers, peers, and industry leaders that understand the unique challenges of rigging work
+
+### Supporting ChaseWhiteRabbit NGO's Charitable Mission
+
+Every successful job placement through RiggerHub generates sustainable funding for ChaseWhiteRabbit NGO's charitable initiatives:
+
+- **Direct Impact Funding**: Platform transaction fees directly support NGO programs focused on community empowerment and worker advocacy
+- **Skills Training Investments**: Platform success enables NGO funding of vocational training programs for disadvantaged youth entering skilled trades
+- **Technology Access Initiatives**: Revenue supports digital literacy programs and technology access in underserved and remote communities
+- **Worker Rights Advocacy**: Platform growth funds research and policy advocacy for fair labor practices and worker protection
+- **Open Source Development**: Success generates resources for developing additional open-source tools that benefit blue-collar workers globally
+- **Community Infrastructure**: Platform profits support NGO investment in community centers and educational facilities in remote areas
+
+### Ethical, Accessible, and Worker-First Technology
+
+RiggerHub embodies ChaseWhiteRabbit NGO's commitment to technology that serves people over profits:
+
+**🔍 Ethical by Design**
+- GPL v3 licensing ensures complete transparency and prevents proprietary exploitation of worker data
+- Algorithmic fairness in job matching eliminates bias and promotes equal opportunity regardless of background
+- Privacy-first data handling protects worker information while providing valuable platform functionality
+- Anti-discrimination safeguards ensure fair access to opportunities for all qualified riggers
+- Transparent recommendation algorithms that workers can understand and influence
+
+**♿ Accessibility as a Core Value**
+- WCAG 2.1 AA compliance ensures usability for workers with diverse abilities and accessibility needs
+- Multi-language support reflecting Western Australia's diverse workforce communities
+- Mobile-first responsive design acknowledging that many workers primarily access technology via smartphones
+- Offline functionality for core features, recognizing connectivity challenges in remote work sites
+- Clear, jargon-free interface design that respects users' time and cognitive load
+
+**👷 Worker-Focused Philosophy**
+- Worker ownership of data and professional profiles prevents vendor lock-in and ensures career portability
+- Transparent fee structures that don't exploit workers or reduce their take-home earnings
+- Direct feedback mechanisms giving workers genuine voice in platform development and feature prioritization
+- Skills-based recognition that values practical experience, craftsmanship, and industry knowledge over credentials
+- Anti-exploitation safeguards that prevent businesses from misusing the platform to undervalue worker contributions
+
+This platform demonstrates that enterprise-grade technology can simultaneously serve worker empowerment, business efficiency, and social good - proving that ethical technology practices create more sustainable and successful business models while generating meaningful funding for charitable work.
