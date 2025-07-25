@@ -1,6 +1,15 @@
-# 🗄️ ARCHIVED - RiggerHub - Web Platform
+# 🏗️ RiggerHub - Web Platform
 
-> **⚠️ This repository has been ARCHIVED. Please visit [RiggerConnect-web](https://github.com/tiation/RiggerConnect-web) for active development.**
+### **Enterprise-Grade, Ethical, Striking Design by ChaseWhiteRabbit NGO**
+*Operations Management Hub for Construction Industry Professionals*
+
+[![ChaseWhiteRabbit NGO](https://img.shields.io/badge/ChaseWhiteRabbit_NGO-Ethical_Tech-FF6B35.svg)](https://chasewhiterabbit.org)
+[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade_Architecture-0066CC.svg)](#)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Open Source](https://img.shields.io/badge/Open_Source-Transparency-brightgreen.svg)](#)
+[![DevOps Ready](https://img.shields.io/badge/DevOps-Docker_+_CI/CD-blue.svg)](#)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
+[![Platform](https://img.shields.io/badge/platform-Web-lightgrey.svg)](#)
 
 ## 🌐 Live Deployment
 
@@ -73,13 +82,15 @@ Both platforms connect through a shared backend managing job matching, contracts
 
 | Repository | Platform | Description | GitHub SSH URL |
 |------------|----------|-------------|----------------|
-| **RiggerBackend** | API | Core backend services and APIs | `git@github.com:tiation/RiggerBackend.git` |
-| **RiggerConnect-web** | Web | Professional networking platform | `git@github.com:tiation/RiggerConnect-web.git` |
-| **RiggerConnect-android** | Android | Mobile networking app | `git@github.com:tiation/RiggerConnect-android.git` |
-| **RiggerConnect-ios** | iOS | Mobile networking app | `git@github.com:tiation/RiggerConnect-ios.git` |
-| **RiggerHub-android** | Android | Mobile operations hub | `git@github.com:tiation/RiggerHub-android.git` |
-| **RiggerHub-ios** | iOS | Mobile operations hub | `git@github.com:tiation/RiggerHub-ios.git` |
-| **RiggerShared** | Multi-platform | Shared libraries and components | `git@github.com:tiation/RiggerShared.git` |
+| **RiggerBackend** | API/Backend | Core backend services and APIs for the Rigger ecosystem | `git@github.com:tiation/RiggerBackend.git` |
+| **RiggerConnect-web** | Web | Professional networking platform for construction workers | `git@github.com:tiation/RiggerConnect-web.git` |
+| **RiggerConnect-android** | Android | Native Android mobile networking application | `git@github.com:tiation/RiggerConnect-android.git` |
+| **RiggerConnect-capacitor** | Cross-platform | Cross-platform mobile app built with Ionic Capacitor | `git@github.com:tiation/RiggerConnect-capacitor.git` |
+| **RiggerConnect-ios** | iOS | Native iOS mobile networking application | `git@github.com:tiation/RiggerConnect-ios.git` |
+| **RiggerHub-web** | Web | Operations management hub for business users | `git@github.com:tiation/RiggerHub-web.git` |
+| **RiggerHub-android** | Android | Native Android operations management application | `git@github.com:tiation/RiggerHub-android.git` |
+| **RiggerHub-ios** | iOS | Native iOS operations management application | `git@github.com:tiation/RiggerHub-ios.git` |
+| **RiggerShared** | Multi-platform | Shared libraries, components, and utilities | `git@github.com:tiation/RiggerShared.git` |
 
 ### Enterprise Integration Architecture
 
@@ -193,8 +204,27 @@ For technical support or platform assistance:
 - **Phone**: +61 8 9123 4567
 - **Location**: Perth, Western Australia
 
-### For Rigger Ecosystem inquiries, contact:
-- **Primary Project Contacts**: jackjonas95@gmail.com, tiatheone@protonmail.com
+## 📧 Contact Information
+
+### Primary Maintainers
+
+For inquiries related to the Rigger ecosystem, please contact our primary maintainers:
+
+#### **Jack Jonas** - Industry Expert & Operations Lead
+- **Email**: [jackjonas95@gmail.com](mailto:jackjonas95@gmail.com)
+- **Background**: Rigger crane operator and heavy vehicle mechanic based in Karratha, WA
+- **Expertise**: Brings extensive hands-on experience from Western Australia's mining and construction industry, providing real-world insights into rigger operations, safety protocols, and workforce challenges
+
+#### **Tia** - Technical Lead & NGO Coordinator  
+- **Email**: [tiatheone@protonmail.com](mailto:tiatheone@protonmail.com)
+- **Background**: Swedish software developer working with NGO ChaseWhiteRabbit
+- **Expertise**: Leads the technical architecture and development while ensuring the platform aligns with ChaseWhiteRabbit NGO's ethical technology standards and social impact mission
+
+### Vision Statement
+
+The unique combination of **Jack's deep rigging industry experience** from Australia's resource sector and **Tia's NGO-driven mission** for ethical technology creates a SaaS platform that truly serves workers rather than exploiting them. This partnership ensures RiggerHub addresses real industry pain points while maintaining the highest standards of worker empowerment and social responsibility.
+
+Together, they oversee the development and coordination of the entire Rigger platform ecosystem, including RiggerConnect, RiggerHub, RiggerBackend, and RiggerShared repositories.
 
 ## 📄 License
 
