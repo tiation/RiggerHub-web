@@ -13,13 +13,13 @@
 
 ## 🌐 Live Deployment
 
-**🚀 View the live site:** [https://riggerhub-web.netlify.app](https://riggerhub-web.netlify.app)
+**🚀 View the live site:** [https://riggerhub-chasewhiterabbit.netlify.app](https://riggerhub-chasewhiterabbit.netlify.app)
 
 ### Testing Instructions
 
 To access and test the deployed RiggerHub platform:
 
-1. **Access the Site**: Click the deployment link above or navigate to `https://riggerhub-web.netlify.app`
+1. **Access the Site**: Click the deployment link above or navigate to `https://riggerhub-chasewhiterabbit.netlify.app`
 2. **Mobile Testing**: The platform is mobile-first - test on various device sizes for optimal experience
 3. **Key Features to Test**:
    - Worker registration flow
@@ -251,7 +251,7 @@ This enterprise-grade DevOps approach ensures RiggerHub maintains **99.9% uptime
 ### Installation
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone git@github.com:tiation/RiggerHub-web.git
 
 # Navigate to project directory
 cd riggerhub-web
@@ -329,14 +329,14 @@ This project is part of a broader suite of repositories aimed at supporting the 
 
 🔗 **Related Repositories**:
 
-* [`RiggerConnect-web`](https://github.com/ChaseWhiteRabbit/RiggerConnect-web)
-* [`RiggerConnect-android`](https://github.com/ChaseWhiteRabbit/RiggerConnect-android)
-* [`RiggerConnect-ios`](https://github.com/ChaseWhiteRabbit/RiggerConnect-ios)
-* [`RiggerHub-web`](https://github.com/ChaseWhiteRabbit/RiggerHub-web)
-* [`RiggerHub-android`](https://github.com/ChaseWhiteRabbit/RiggerHub-android)
-* [`RiggerHub-ios`](https://github.com/ChaseWhiteRabbit/RiggerHub-ios)
-* [`RiggerShared`](https://github.com/ChaseWhiteRabbit/RiggerShared)
-* [`RiggerBackend`](https://github.com/ChaseWhiteRabbit/RiggerBackend)
+* [`RiggerConnect-web`](git@github.com:tiation/RiggerConnect-web.git)
+* [`RiggerConnect-android`](git@github.com:tiation/RiggerConnect-android.git)
+* [`RiggerConnect-ios`](git@github.com:tiation/RiggerConnect-ios.git)
+* [`RiggerHub-web`](git@github.com:tiation/RiggerHub-web.git)
+* [`RiggerHub-android`](git@github.com:tiation/RiggerHub-android.git)
+* [`RiggerHub-ios`](git@github.com:tiation/RiggerHub-ios.git)
+* [`RiggerShared`](git@github.com:tiation/RiggerShared.git)
+* [`RiggerBackend`](git@github.com:tiation/RiggerBackend.git)
 
 📬 **Contact**:
 For questions, ideas, or collaboration inquiries, please reach out to:
