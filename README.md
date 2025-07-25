@@ -323,26 +323,51 @@ RiggerHub maintains strict compliance with Western Australian construction and m
 - **RiggerBackend**: Shared backend services and API
 - **RiggerShared**: Common UI components and contracts
 
-## 📞 Support
+## 🤝 Project Team & Purpose
 
-For technical support or platform assistance:
+This project is part of a broader suite of repositories aimed at supporting the **transient rigging and heavy lifting industry** in Western Australia and beyond.
 
-- **Email**: support@riggerhub.com.au
-- **Phone**: +61 8 9123 4567
-- **Location**: Perth, Western Australia
+🔗 **Related Repositories**:
 
-## 📧 Contact Information
+* [`RiggerConnect-web`](https://github.com/ChaseWhiteRabbit/RiggerConnect-web)
+* [`RiggerConnect-android`](https://github.com/ChaseWhiteRabbit/RiggerConnect-android)
+* [`RiggerConnect-ios`](https://github.com/ChaseWhiteRabbit/RiggerConnect-ios)
+* [`RiggerHub-web`](https://github.com/ChaseWhiteRabbit/RiggerHub-web)
+* [`RiggerHub-android`](https://github.com/ChaseWhiteRabbit/RiggerHub-android)
+* [`RiggerHub-ios`](https://github.com/ChaseWhiteRabbit/RiggerHub-ios)
+* [`RiggerShared`](https://github.com/ChaseWhiteRabbit/RiggerShared)
+* [`RiggerBackend`](https://github.com/ChaseWhiteRabbit/RiggerBackend)
 
-### Primary Maintainers
+📬 **Contact**:
+For questions, ideas, or collaboration inquiries, please reach out to:
+
+* **Jack Jonas** – [jackjonas95@gmail.com](mailto:jackjonas95@gmail.com)
+* **Tia** – [tiatheone@protonmail.com](mailto:tiatheone@protonmail.com)
+
+---
+
+### 🙌 About the Founders
+
+**Jack Jonas** is a seasoned rigger, crane operator, and heavy vehicle mechanic based in Karratha, Western Australia. His firsthand experience in the field shapes the practical backbone of this platform.
+
+**Tia** is a Swedish software developer and founder of the NGO **ChaseWhiteRabbit**, which is dedicated to building inclusive, systemic solutions to complex challenges.
+
+Together, they created this SaaS platform to:
+
+* Help connect riggers, doggers, and crane operators to real work opportunities.
+* Support better logistics, transparency, and compliance in the field.
+* Fund and sustain the good work being done by **ChaseWhiteRabbit** in disadvantaged communities.
+
+## 📧 Primary Maintainers
 
 For inquiries related to the Rigger ecosystem, please contact our primary maintainers:
 
-#### **Jack Jonas** - Industry Expert & Operations Lead
+#### **Jack Jonas** - Industry Expert 6 Operations Lead
 - **Email**: [jackjonas95@gmail.com](mailto:jackjonas95@gmail.com)
 - **Background**: Rigger crane operator and heavy vehicle mechanic based in Karratha, WA
 - **Expertise**: Brings extensive hands-on experience from Western Australia's mining and construction industry, providing real-world insights into rigger operations, safety protocols, and workforce challenges
 
-#### **Tia Astor** - Technical Lead & NGO Coordinator  
+#### **Tia** - Technical Lead 6 NGO Coordinator  
 - **Email**: [tiatheone@protonmail.com](mailto:tiatheone@protonmail.com)
 - **Background**: Swedish software developer working with NGO ChaseWhiteRabbit
 - **Expertise**: Leads the technical architecture and development while ensuring the platform aligns with ChaseWhiteRabbit NGO's ethical technology standards and social impact mission
