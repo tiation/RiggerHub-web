@@ -1,8 +1,52 @@
 {
-  "name": "RiggerConnectApp",
+  "name": "riggerhub-web",
+  "displayName": "RiggerHub - Enterprise-Grade Operations Hub",
+  "description": "Enterprise-grade, ethical web platform for construction industry professionals. Part of the ChaseWhiteRabbit NGO Rigger Project ecosystem supporting worker empowerment through open-source technology.",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "license": "GPL-3.0",
+  "author": {
+    "name": "ChaseWhiteRabbit NGO",
+    "email": "tiatheone@protonmail.com",
+    "url": "https://chasewhiterabbit.org"
+  },
+  "contributors": [
+    {
+      "name": "Jack Jonas",
+      "email": "jackjonas95@gmail.com",
+      "role": "Industry Expert & Operations Lead"
+    },
+    {
+      "name": "Tia",
+      "email": "tiatheone@protonmail.com",
+      "role": "Technical Lead & NGO Coordinator"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:tiation/RiggerHub-web.git"
+  },
+  "homepage": "https://riggerhub.com.au",
+  "bugs": {
+    "url": "https://github.com/tiation/RiggerHub-web/issues",
+    "email": "support@riggerhub.com.au"
+  },
+  "keywords": [
+    "enterprise-grade",
+    "ethical-technology",
+    "rigging-jobs",
+    "construction",
+    "mining",
+    "western-australia",
+    "worker-empowerment",
+    "open-source",
+    "gpl-v3",
+    "chasewhiterabbit-ngo",
+    "devops",
+    "docker",
+    "ci-cd"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
