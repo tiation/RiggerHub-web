@@ -128,6 +128,9 @@ For technical support or platform assistance:
 - **Phone**: +61 8 9123 4567
 - **Location**: Perth, Western Australia
 
+### For Rigger Ecosystem inquiries, contact:
+- **Primary Project Contacts**: jackjonas95@gmail.com, tiatheone@protonmail.com
+
 ## 📄 License
 
 © 2024 RiggerHub. All rights reserved.
